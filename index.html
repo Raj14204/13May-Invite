@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Raja &amp; Priyanka — Wedding 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="splash">
+  <div id="bokeh-wrap"></div>
+  <div id="splash-overlay"></div>
+  <video id="bg-video" muted playsinline preload="metadata">
+    <source src="Raja.mp4" type="video/mp4">
+  </video>
+  <div id="play-btn">
+    <div class="play-icon">&#9654;</div>
+    <p class="play-label">Tap to Play</p>
+  </div>
+  <div id="splash-scroll-arrow">
+    <span class="ssa-label">Scroll to explore</span>
+    <div class="ssa-chevrons">
+      <div class="ssa-chevron"></div>
+      <div class="ssa-chevron"></div>
+    </div>
+  </div>
+</div>
+
+
+<div id="main-page">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto">
+      <source src="hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+    <div class="hero-bg-petals" id="petals-wrap"></div>
+    <div class="mandala-ring"></div>
+    <div class="mandala-ring"></div>
+    <div class="mandala-ring"></div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+
+  <!-- ── COUNTDOWN ── -->
+  <section class="countdown-section reveal">
+    <p class="section-label">Until we say I do</p>
+    <h2 class="section-title">Counting Down</h2>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-gem"></div>
+      <div class="divider-line rev"></div>
+    </div>
+    <div class="countdown-grid">
+      <div class="cd-box"><span class="cd-num" id="cd-days">--</span><div class="cd-label">Days</div></div>
+      <div class="cd-box"><span class="cd-num" id="cd-hours">--</span><div class="cd-label">Hours</div></div>
+      <div class="cd-box"><span class="cd-num" id="cd-mins">--</span><div class="cd-label">Mins</div></div>
+      <div class="cd-box"><span class="cd-num" id="cd-secs">--</span><div class="cd-label">Secs</div></div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       DETAILS SECTION (new)
+  ══════════════════════════════════ -->
+  <section class="details-section">
+    <!-- <p class="section-label reveal">What's in store</p> -->
+    <h2 class="section-title reveal">Details</h2>
+    <div class="divider reveal">
+      <div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line rev"></div>
+    </div>
+
+    <!-- Details image placeholder -->
+    <!-- <div class="details-img-wrap reveal">
+      <img src="details.jpg" alt="Wedding Details" class="details-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="details-img-fallback">
+        <div class="details-fallback-icon">💍</div>
+        <p>Your photo here</p>
+      </div>
+    </div> -->
+
+    
+  </section>
+
+
+  <!-- ══════════════════════════════════
+       VENUE & LOCATION SECTION (new)
+  ══════════════════════════════════ -->
+  <section class="venue-section">
+    <p class="section-label reveal">Find Us Here</p>
+    <h2 class="section-title reveal">Venue &amp; Location</h2>
+    <div class="divider reveal">
+      <div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line rev"></div>
+    </div>
+
+    <!-- Venue image placeholder -->
+    <div class="venue-img-wrap reveal">
+      <img src="hawa-mahal-jaipur-rajasthan-breathtaking-example-indian-architecture_1003076-20094.avif" alt="Raj Mahal Gardens" class="venue-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="venue-img-fallback">
+        <div class="venue-fallback-icon">🏛️</div>
+        <p>Your photo here</p>
+      </div>
+    </div>
+
+    <!-- Venue info card -->
+    <div class="venue-card reveal">
+      <div class="venue-card-inner">
+        <div class="venue-icon-row">🌺</div>
+        <h3 class="venue-name">Raj Mahal Gardens</h3>
+        <p class="venue-addr">Survey No. 45, Baner Road,<br>Pune, Maharashtra 411045</p>
+        <div class="venue-divider"></div>
+        <div class="venue-detail-row">
+          <span class="venue-detail-icon">📅</span>
+          <span class="venue-detail-text">May 13, 2026 · 11:00 AM onwards</span>
+        </div>
+        <div class="venue-detail-row">
+          <span class="venue-detail-icon">🚗</span>
+          <span class="venue-detail-text">Ample parking available on site</span>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="venue-btns">
+        <a class="venue-btn venue-btn-maps"
+           href="https://maps.google.com/?q=Raj+Mahal+Gardens+Pune"
+           target="_blank" rel="noopener">
+          <span class="vbtn-icon">📍</span>
+          <span class="vbtn-label">Open in<br><strong>Google Maps</strong></span>
+        </a>
+        <button class="venue-btn venue-btn-cal" onclick="toggleCalendar()">
+          <span class="vbtn-icon">🗓️</span>
+          <span class="vbtn-label">View<br><strong>Calendar</strong></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mini Calendar Popup -->
+    <div class="mini-cal-wrap" id="mini-cal" style="display:none">
+      <div class="mini-cal">
+        <div class="mini-cal-header">
+          <span class="mini-cal-month">May 2026</span>
+        </div>
+        <div class="mini-cal-grid">
+          <div class="cal-day-name">Sun</div>
+          <div class="cal-day-name">Mon</div>
+          <div class="cal-day-name">Tue</div>
+          <div class="cal-day-name">Wed</div>
+          <div class="cal-day-name">Thu</div>
+          <div class="cal-day-name">Fri</div>
+          <div class="cal-day-name">Sat</div>
+          <!-- Week 1: May starts on Friday -->
+          <div class="cal-day cal-empty"></div>
+          <div class="cal-day cal-empty"></div>
+          <div class="cal-day cal-empty"></div>
+          <div class="cal-day cal-empty"></div>
+          <div class="cal-day cal-empty"></div>
+          <div class="cal-day">1</div>
+          <div class="cal-day">2</div>
+          <!-- Week 2 -->
+          <div class="cal-day">3</div>
+          <div class="cal-day">4</div>
+          <div class="cal-day">5</div>
+          <div class="cal-day">6</div>
+          <div class="cal-day">7</div>
+          <div class="cal-day">8</div>
+          <div class="cal-day">9</div>
+          <!-- Week 3 -->
+          <div class="cal-day">10</div>
+          <div class="cal-day">11</div>
+          <div class="cal-day cal-event" title="Haldi & Mehendi">12</div>
+          <div class="cal-day cal-wedding" title="Wedding Day!">13</div>
+          <div class="cal-day">14</div>
+          <div class="cal-day">15</div>
+          <div class="cal-day">16</div>
+          <!-- Week 4 -->
+          <div class="cal-day">17</div>
+          <div class="cal-day">18</div>
+          <div class="cal-day">19</div>
+          <div class="cal-day">20</div>
+          <div class="cal-day">21</div>
+          <div class="cal-day">22</div>
+          <div class="cal-day">23</div>
+          <!-- Week 5 -->
+          <div class="cal-day">24</div>
+          <div class="cal-day">25</div>
+          <div class="cal-day">26</div>
+          <div class="cal-day">27</div>
+          <div class="cal-day">28</div>
+          <div class="cal-day">29</div>
+          <div class="cal-day">30</div>
+          <!-- Week 6 -->
+          <div class="cal-day">31</div>
+          <div class="cal-day cal-empty"></div>
+          <div class="cal-day cal-empty"></div>
+          <div class="cal-day cal-empty"></div>
+          <div class="cal-day cal-empty"></div>
+          <div class="cal-day cal-empty"></div>
+          <div class="cal-day cal-empty"></div>
+        </div>
+        <div class="mini-cal-legend">
+          <span class="cal-legend-dot cal-legend-event"></span><span>Haldi &amp; Mehendi (May 12)</span>
+          <span class="cal-legend-dot cal-legend-wedding"></span><span>Wedding Day (May 13)</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ── SCRATCH CARDS — EVENTS ── -->
+  <section class="events-section">
+    <p class="section-label reveal">Our Celebrations</p>
+    <h2 class="section-title reveal">Scratch to Reveal</h2>
+    <div class="divider reveal">
+      <div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line rev"></div>
+    </div>
+    <p class="events-intro reveal">Scratch each card to discover our wedding events ✨</p>
+
+    <div class="scratch-container reveal" style="transition-delay:.05s">
+      <div class="scratch-reveal">
+        <div class="event-badge">Day 1 · Morning</div>
+        <div class="event-name">Haldi Ceremony</div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 10:00 AM</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Raj Mahal Banquet, Pune</span></div>
+        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Yellow &amp; White</span></div>
+      </div>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas"></canvas>
+        <div class="scratch-hint">✦ Scratch me ✦</div>
+        <div class="scratched-badge">✓</div>
+      </div>
+    </div>
+
+    <div class="scratch-container reveal" style="transition-delay:.15s">
+      <div class="scratch-reveal">
+        <div class="event-badge">Day 1 · Evening</div>
+        <div class="event-name">Mehendi Night</div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 6:00 PM</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Priyanka's Residence, Pune</span></div>
+        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Greens &amp; Pinks</span></div>
+      </div>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas"></canvas>
+        <div class="scratch-hint">✦ Scratch me ✦</div>
+        <div class="scratched-badge">✓</div>
+      </div>
+    </div>
+
+    <div class="scratch-container reveal" style="transition-delay:.25s">
+      <div class="scratch-reveal">
+        <div class="event-badge">Day 2 · Night</div>
+        <div class="event-name">Sangeet Evening</div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 8:00 PM</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Raj Mahal Banquet, Pune</span></div>
+        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Glam &amp; Festive</span></div>
+      </div>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas"></canvas>
+        <div class="scratch-hint">✦ Scratch me ✦</div>
+        <div class="scratched-badge">✓</div>
+      </div>
+    </div>
+
+    <div class="scratch-container reveal" style="transition-delay:.35s">
+      <div class="scratch-reveal">
+        <div class="event-badge">The Big Day ♥</div>
+        <div class="event-name">Wedding Ceremony</div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 13, 2026 · 11:00 AM</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Raj Mahal Gardens, Pune</span></div>
+        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Traditional Attire</span></div>
+      </div>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas"></canvas>
+        <div class="scratch-hint">✦ Scratch me ✦</div>
+        <div class="scratched-badge">✓</div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ── BLESSINGS ── -->
+  <section class="blessings-section">
+    <p class="section-label reveal">With all our love</p>
+    <h2 class="section-title reveal">Join Our Joy</h2>
+    <div class="divider reveal">
+      <div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line rev"></div>
+    </div>
+    <div class="floral-row reveal">🌸 🌺 🌸</div>
+    <p class="blessings-text reveal">
+      Your presence is the greatest gift of all.<br>
+      We look forward to celebrating this beautiful journey with you —
+      our family, our friends, our people.
+    </p>
+    <p class="blessings-text reveal" style="font-size:1.3rem;opacity:.88;">— Raja &amp; Priyanka</p>
+    <div class="floral-row reveal" style="animation-delay:.5s">🌺 🌸 🌺</div>
+  </section>
+
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer-section">
+    <div class="footer-logo">Raja &amp; Priyanka</div>
+    <p class="footer-tagline">May 13 &middot; 2026 &middot; Pune</p>
+    <div class="footer-sep"></div>
+    <p class="footer-credit">Website crafted with love by</p>
+    <p class="footer-name">Prathamesh Majalkar</p>
+    <a href="mailto:majalkarprathamesh14@gmail.com" class="footer-email">majalkarprathamesh14@gmail.com</a>
+    <div class="footer-sep"></div>
+    <p class="footer-hearts">♥ &middot; ♥ &middot; ♥</p>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+/* Mini calendar toggle */
+function toggleCalendar() {
+  const cal = document.getElementById('mini-cal');
+  const isHidden = cal.style.display === 'none';
+  cal.style.display = isHidden ? 'block' : 'none';
+  if (isHidden) {
+    cal.style.opacity = '0';
+    cal.style.transform = 'translateY(10px)';
+    requestAnimationFrame(() => {
+      cal.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+      cal.style.opacity = '1';
+      cal.style.transform = 'translateY(0)';
+    });
+  }
+}
+</script>
+</body>
+</html>

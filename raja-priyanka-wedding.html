@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Raja & Priyanka Wedding</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #8B1A2A;
+    --deep-rose: #C0395A;
+    --blush: #F2D0D8;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --ivory: #FAF3EC;
+    --sage: #7A9C7E;
+    --dark: #2A1018;
+    --petal: #F7E8EE;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ivory);
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--dark);
+    max-width: 430px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ─── SECTION 1: VIDEO SPLASH ─── */
+  #splash {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--dark);
+    cursor: pointer;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    max-width: 430px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #splash.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) scale(1.05);
+  }
+
+  #splash video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+  }
+
+  .splash-overlay {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .tap-ring {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    animation: pulse-ring 2s ease-in-out infinite;
+    position: relative;
+  }
+
+  .tap-ring::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.4);
+    animation: pulse-ring 2s ease-in-out infinite 0.3s;
+  }
+
+  .tap-ring::after {
+    content: '♥';
+    font-size: 2rem;
+    color: var(--gold);
+  }
+
+  @keyframes pulse-ring {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+  }
+
+  .tap-text {
+    font-family: 'Cinzel', serif;
+    color: var(--gold-light);
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    animation: fade-blink 2s ease-in-out infinite;
+  }
+
+  @keyframes fade-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .splash-names {
+    font-family: 'Great Vibes', cursive;
+    color: white;
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 30px rgba(201,168,76,0.5);
+  }
+
+  .splash-date {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    margin-bottom: 2rem;
+  }
+
+  /* ─── MAIN PAGE ─── */
+  #main-page {
+    min-height: 100vh;
+    opacity: 0;
+    transition: opacity 1s ease 0.3s;
+  }
+
+  #main-page.visible { opacity: 1; }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(175deg, #FAF0F3 0%, #F7E8EE 40%, #EDD8E5 100%);
+  }
+
+  .hero-bg-petals {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .petal {
+    position: absolute;
+    width: 12px;
+    height: 16px;
+    background: radial-gradient(ellipse, rgba(192,57,90,0.3) 0%, transparent 70%);
+    border-radius: 50% 50% 50% 0;
+    animation: fall linear infinite;
+    opacity: 0;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  .mandala-ring {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,168,76,0.2);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: slow-spin 40s linear infinite;
+  }
+
+  .mandala-ring:nth-child(2) {
+    width: 250px;
+    height: 250px;
+    border-color: rgba(192,57,90,0.1);
+    animation-direction: reverse;
+    animation-duration: 30s;
+  }
+
+  @keyframes slow-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem 1.5rem;
+    animation: hero-enter 1.2s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes hero-enter {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-together {
+    font-family: 'Cinzel', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    color: var(--crimson);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+  }
+
+  .hero-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4.5rem;
+    color: var(--crimson);
+    line-height: 1.1;
+    text-shadow: 2px 2px 20px rgba(139,26,42,0.15);
+  }
+
+  .hero-and {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin: 0.3rem 0;
+  }
+
+  .hero-invite {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--dark);
+    opacity: 0.7;
+    margin: 1rem 0 0.5rem;
+  }
+
+  .hero-date-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .hero-date-num {
+    font-family: 'Cinzel', serif;
+    font-size: 2.2rem;
+    color: var(--crimson);
+    font-weight: 600;
+  }
+
+  .hero-date-num sup {
+    font-size: 0.85rem;
+    vertical-align: super;
+  }
+
+  .hero-date-divider {
+    width: 1px;
+    height: 35px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  }
+
+  .hero-date-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--crimson);
+    text-transform: uppercase;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .scroll-hint span {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    color: var(--crimson);
+    opacity: 0.6;
+  }
+
+  .scroll-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 1.5px solid var(--crimson);
+    border-bottom: 1.5px solid var(--crimson);
+    transform: rotate(45deg);
+    opacity: 0.5;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ─── SECTION WRAPPER ─── */
+  section {
+    padding: 3.5rem 1.5rem;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: var(--crimson);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin: 1rem auto 2rem;
+  }
+
+  .divider-line {
+    width: 50px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+
+  .divider-line.rev {
+    background: linear-gradient(to left, transparent, var(--gold));
+  }
+
+  .divider-gem {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  /* ─── COUNTDOWN ─── */
+  .countdown-section {
+    background: linear-gradient(160deg, var(--crimson) 0%, #5A0E1C 100%);
+    color: white;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .countdown-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(201,168,76,0.15)'/%3E%3C/svg%3E") repeat;
+    pointer-events: none;
+  }
+
+  .countdown-section .section-label { color: var(--gold-light); }
+  .countdown-section .section-title { color: white; }
+  .countdown-section .divider-line { background: linear-gradient(to right, transparent, var(--gold-light)); }
+  .countdown-section .divider-line.rev { background: linear-gradient(to left, transparent, var(--gold-light)); }
+  .countdown-section .divider-gem { background: var(--gold-light); }
+
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  .cd-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 12px;
+    padding: 1rem 0.3rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+
+  .cd-box::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-light), transparent);
+  }
+
+  .cd-num {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    line-height: 1;
+    display: block;
+    transition: transform 0.3s;
+  }
+
+  .cd-num.flip {
+    animation: flip-num 0.4s ease;
+  }
+
+  @keyframes flip-num {
+    0% { transform: translateY(-10px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  .cd-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  /* ─── SCRATCH CARD SECTION ─── */
+  .events-section {
+    background: var(--petal);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .events-section::before {
+    content: '';
+    position: absolute;
+    top: -30px; left: -30px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(192,57,90,0.08) 0%, transparent 70%);
+  }
+
+  .events-intro {
+    text-align: center;
+    font-style: italic;
+    color: var(--crimson);
+    opacity: 0.7;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .scratch-container {
+    position: relative;
+    margin-bottom: 1.2rem;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(139,26,42,0.12);
+  }
+
+  .scratch-reveal {
+    width: 100%;
+    padding: 1.5rem;
+    background: white;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 16px;
+  }
+
+  .event-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: var(--crimson);
+    margin-bottom: 0.3rem;
+  }
+
+  .event-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+  }
+
+  .event-icon {
+    font-size: 0.9rem;
+  }
+
+  .event-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    color: var(--dark);
+    opacity: 0.8;
+  }
+
+  .event-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--crimson), var(--deep-rose));
+    color: white;
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    padding: 0.25rem 0.7rem;
+    border-radius: 20px;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .scratch-canvas-wrap {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .scratch-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+    touch-action: none;
+    border-radius: 16px;
+  }
+
+  .scratch-hint {
+    position: absolute;
+    bottom: 8px;
+    right: 12px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .scratched-badge {
+    display: none;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--gold);
+    color: white;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .scratched-badge.show { display: flex; }
+
+  /* ─── BLESSINGS / RSVP ─── */
+  .blessings-section {
+    background: linear-gradient(160deg, #FFF8F0 0%, var(--petal) 100%);
+    text-align: center;
+  }
+
+  .blessings-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--dark);
+    opacity: 0.75;
+    line-height: 1.8;
+    max-width: 340px;
+    margin: 0 auto 2rem;
+  }
+
+  .floral-row {
+    font-size: 1.5rem;
+    letter-spacing: 0.5rem;
+    margin: 1rem 0;
+    opacity: 0.7;
+    animation: sway 4s ease-in-out infinite;
+  }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+
+  /* ─── FOOTER / CONTACT ─── */
+  .footer-section {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 3rem 1.5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+
+  .footer-logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin-bottom: 0.3rem;
+  }
+
+  .footer-tagline {
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.35em;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-sep {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 1.2rem auto;
+    opacity: 0.5;
+  }
+
+  .footer-credit {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-name {
+    font-family: 'Cinzel', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-email {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-email:hover { color: var(--gold); }
+
+  .footer-hearts {
+    margin-top: 2rem;
+    font-size: 0.7rem;
+    color: var(--crimson);
+    letter-spacing: 0.5rem;
+    opacity: 0.6;
+  }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ─── FLOATING PETALS ─── */
+  .floating-petal {
+    position: fixed;
+    pointer-events: none;
+    z-index: 999;
+    font-size: 1rem;
+    animation: float-petal 6s ease-in forwards;
+    opacity: 0;
+  }
+
+  @keyframes float-petal {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-80vh) rotate(720deg) translateX(40px); opacity: 0; }
+  }
+
+  /* ─── GOLD PARTICLES ─── */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particle-float linear infinite;
+  }
+
+  @keyframes particle-float {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    50% { opacity: 0.4; }
+    100% { transform: translateY(-100px) scale(0); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ SPLASH SCREEN ═══════════════ -->
+<div id="splash">
+  <!-- Replace src with your actual video file -->
+  <video id="bg-video" loop muted playsinline poster="">
+    <source src="Raja.mp4" type="video/mp4">
+  </video>
+  <!-- Beautiful gradient fallback when no video -->
+  <div style="position:absolute;inset:0;background:linear-gradient(160deg,#2A1018 0%,#8B1A2A 50%,#2A1018 100%);"></div>
+  <!-- Animated bokeh -->
+  <div id="bokeh-wrap" style="position:absolute;inset:0;overflow:hidden;"></div>
+  <div class="splash-overlay">
+    <p class="splash-date">MAY 13<sup>TH</sup> · 2026</p>
+    <div class="splash-names">Raja<br>&amp; Priyanka</div>
+    <div class="tap-ring"></div>
+    <p class="tap-text">Tap anywhere to begin</p>
+  </div>
+</div>
+
+<!-- ═══════════════ MAIN PAGE ═══════════════ -->
+<div id="main-page">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-bg-petals" id="petals-wrap"></div>
+    <div class="mandala-ring"></div>
+    <div class="mandala-ring"></div>
+
+    <div class="hero-content">
+      <p class="hero-together">Together with our families</p>
+      <div class="hero-names">Raja</div>
+      <div class="hero-and">— and —</div>
+      <div class="hero-names">Priyanka</div>
+      <p class="hero-invite">We cordially invite you to join our wedding on</p>
+      <div class="hero-date-bar">
+        <div class="hero-date-text">May</div>
+        <div class="hero-date-divider"></div>
+        <div class="hero-date-num">13<sup>th</sup></div>
+        <div class="hero-date-divider"></div>
+        <div class="hero-date-text">2026</div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ── COUNTDOWN ── -->
+  <section class="countdown-section reveal">
+    <p class="section-label">Until we say I do</p>
+    <h2 class="section-title">Counting Down</h2>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-gem"></div>
+      <div class="divider-line rev"></div>
+    </div>
+    <div class="countdown-grid">
+      <div class="cd-box"><span class="cd-num" id="cd-days">--</span><div class="cd-label">Days</div></div>
+      <div class="cd-box"><span class="cd-num" id="cd-hours">--</span><div class="cd-label">Hours</div></div>
+      <div class="cd-box"><span class="cd-num" id="cd-mins">--</span><div class="cd-label">Mins</div></div>
+      <div class="cd-box"><span class="cd-num" id="cd-secs">--</span><div class="cd-label">Secs</div></div>
+    </div>
+  </section>
+
+  <!-- ── SCRATCH CARD EVENTS ── -->
+  <section class="events-section">
+    <p class="section-label reveal">Our Celebrations</p>
+    <h2 class="section-title reveal">Scratch to Reveal</h2>
+    <div class="divider reveal">
+      <div class="divider-line"></div>
+      <div class="divider-gem"></div>
+      <div class="divider-line rev"></div>
+    </div>
+    <p class="events-intro reveal">Scratch each card to discover our wedding events ✨</p>
+
+    <!-- Event 1 -->
+    <div class="scratch-container reveal" style="transition-delay:0.1s">
+      <div class="scratch-reveal">
+        <div class="event-badge">Day 1</div>
+        <div class="event-name">Haldi Ceremony</div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 10:00 AM</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Raj Mahal Banquet, Pune</span></div>
+        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Yellow & White</span></div>
+      </div>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas" data-event="1"></canvas>
+        <div class="scratch-hint">✦ Scratch me ✦</div>
+        <div class="scratched-badge">✓</div>
+      </div>
+    </div>
+
+    <!-- Event 2 -->
+    <div class="scratch-container reveal" style="transition-delay:0.2s">
+      <div class="scratch-reveal">
+        <div class="event-badge">Day 1 · Evening</div>
+        <div class="event-name">Mehendi Night</div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 6:00 PM</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Priyanka's Residence, Pune</span></div>
+        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Greens & Pinks</span></div>
+      </div>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas" data-event="2"></canvas>
+        <div class="scratch-hint">✦ Scratch me ✦</div>
+        <div class="scratched-badge">✓</div>
+      </div>
+    </div>
+
+    <!-- Event 3 -->
+    <div class="scratch-container reveal" style="transition-delay:0.3s">
+      <div class="scratch-reveal">
+        <div class="event-badge">Day 2</div>
+        <div class="event-name">Sangeet Evening</div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 8:00 PM</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Raj Mahal Banquet, Pune</span></div>
+        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Glam & Festive</span></div>
+      </div>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas" data-event="3"></canvas>
+        <div class="scratch-hint">✦ Scratch me ✦</div>
+        <div class="scratched-badge">✓</div>
+      </div>
+    </div>
+
+    <!-- Event 4 -->
+    <div class="scratch-container reveal" style="transition-delay:0.4s">
+      <div class="scratch-reveal">
+        <div class="event-badge">The Big Day ♥</div>
+        <div class="event-name">Wedding Ceremony</div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 13, 2026 · 11:00 AM</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Raj Mahal Gardens, Pune</span></div>
+        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Traditional Attire</span></div>
+      </div>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas" data-event="4"></canvas>
+        <div class="scratch-hint">✦ Scratch me ✦</div>
+        <div class="scratched-badge">✓</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BLESSINGS ── -->
+  <section class="blessings-section">
+    <p class="section-label reveal">With all our love</p>
+    <h2 class="section-title reveal">Join Our Joy</h2>
+    <div class="divider reveal">
+      <div class="divider-line"></div>
+      <div class="divider-gem"></div>
+      <div class="divider-line rev"></div>
+    </div>
+    <div class="floral-row reveal">🌸 🌺 🌸</div>
+    <p class="blessings-text reveal">
+      Your presence is the greatest gift of all.<br>
+      We look forward to celebrating this beautiful journey with you — our family, our friends, our people.
+    </p>
+    <p class="blessings-text reveal" style="font-size:1.3rem;opacity:0.9;">
+      — Raja &amp; Priyanka
+    </p>
+    <div class="floral-row reveal" style="animation-delay:0.5s">🌺 🌸 🌺</div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer-section">
+    <div class="footer-logo">Raja &amp; Priyanka</div>
+    <p class="footer-tagline">May 13 · 2026 · Pune</p>
+    <div class="footer-sep"></div>
+    <p class="footer-credit">Website crafted with love by</p>
+    <p class="footer-name">Prathamesh Majalkar</p>
+    <a href="mailto:majalkarprathamesh14@gmail.com" class="footer-email">majalkarprathamesh14@gmail.com</a>
+    <div class="footer-sep"></div>
+    <p class="footer-hearts">♥ · ♥ · ♥</p>
+  </footer>
+
+</div><!-- /main-page -->
+
+<script>
+// ═══════════════════════════════════════════════
+//  SPLASH + VIDEO
+// ═══════════════════════════════════════════════
+(function() {
+  const splash = document.getElementById('splash');
+  const mainPage = document.getElementById('main-page');
+  const video = document.getElementById('bg-video');
+
+  // Bokeh particles on splash
+  const bokeh = document.getElementById('bokeh-wrap');
+  for (let i = 0; i < 18; i++) {
+    const d = document.createElement('div');
+    const size = Math.random() * 60 + 20;
+    d.style.cssText = `position:absolute;width:${size}px;height:${size}px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(201,168,76,${Math.random()*0.15+0.05}) 0%,transparent 70%);
+      left:${Math.random()*100}%;top:${Math.random()*100}%;
+      animation:pulse-ring ${3+Math.random()*4}s ease-in-out infinite;
+      animation-delay:${Math.random()*4}s;`;
+    bokeh.appendChild(d);
+  }
+
+  let started = false;
+  splash.addEventListener('click', start);
+  splash.addEventListener('touchend', function(e){ e.preventDefault(); start(); }, { passive: false });
+
+  function start() {
+    if (started) return;
+    started = true;
+    // Try playing video
+    if (video.src && video.src !== window.location.href) {
+      video.muted = true;
+      video.play().catch(() => {});
+    }
+    // Transition out splash
+    setTimeout(() => {
+      splash.classList.add('hidden');
+      mainPage.classList.add('visible');
+      mainPage.style.animationDelay = '0.3s';
+      initHero();
+    }, 200);
+  }
+})();
+
+// ═══════════════════════════════════════════════
+//  FALLING PETALS (hero)
+// ═══════════════════════════════════════════════
+function initHero() {
+  const wrap = document.getElementById('petals-wrap');
+  function spawnPetal() {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const size = Math.random() * 10 + 8;
+    p.style.cssText = `
+      width:${size}px;height:${size*1.4}px;
+      left:${Math.random()*100}%;
+      animation-duration:${Math.random()*6+5}s;
+      animation-delay:${Math.random()*2}s;
+      top:-20px;
+      transform:rotate(${Math.random()*360}deg);
+    `;
+    wrap.appendChild(p);
+    setTimeout(() => p.remove(), 9000);
+  }
+  setInterval(spawnPetal, 500);
+}
+
+// ═══════════════════════════════════════════════
+//  COUNTDOWN
+// ═══════════════════════════════════════════════
+(function() {
+  const target = new Date('2026-05-13T11:00:00').getTime();
+  const els = {
+    d: document.getElementById('cd-days'),
+    h: document.getElementById('cd-hours'),
+    m: document.getElementById('cd-mins'),
+    s: document.getElementById('cd-secs')
+  };
+
+  function update() {
+    const now = Date.now();
+    const diff = Math.max(0, target - now);
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    function set(el, val) {
+      const str = String(val).padStart(2, '0');
+      if (el.textContent !== str) {
+        el.textContent = str;
+        el.classList.remove('flip');
+        void el.offsetWidth;
+        el.classList.add('flip');
+      }
+    }
+
+    set(els.d, d);
+    set(els.h, h);
+    set(els.m, m);
+    set(els.s, s);
+  }
+  update();
+  setInterval(update, 1000);
+})();
+
+// ═══════════════════════════════════════════════
+//  SCRATCH CARDS
+// ═══════════════════════════════════════════════
+(function() {
+  const COLORS = [
+    ['#8B1A2A','#C0395A'],   // card 1
+    ['#5A1A2A','#8B4560'],   // card 2
+    ['#2A4A2A','#4A7A4A'],   // card 3
+    ['#1A2A5A','#3A5A8B'],   // card 4
+  ];
+
+  document.querySelectorAll('.scratch-canvas').forEach((canvas, i) => {
+    const wrap = canvas.closest('.scratch-canvas-wrap');
+    const container = canvas.closest('.scratch-container');
+    const hint = wrap.querySelector('.scratch-hint');
+    const badge = wrap.querySelector('.scratched-badge');
+    const reveal = container.querySelector('.scratch-reveal');
+    const [c1, c2] = COLORS[i];
+
+    let scratched = false;
+    let isDrawing = false;
+    let totalPixels = 0;
+    let clearedPixels = 0;
+
+    function initCanvas() {
+      const h = reveal.offsetHeight;
+      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
+      canvas.height = h * window.devicePixelRatio;
+      canvas.style.height = h + 'px';
+
+      const ctx = canvas.getContext('2d');
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+      // Gradient cover
+      const grad = ctx.createLinearGradient(0, 0, canvas.offsetWidth, h);
+      grad.addColorStop(0, c1);
+      grad.addColorStop(1, c2);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.offsetWidth, h);
+
+      // Pattern texture
+      ctx.globalAlpha = 0.12;
+      for (let row = 0; row < h; row += 22) {
+        for (let col = 0; col < canvas.offsetWidth; col += 22) {
+          ctx.fillStyle = 'rgba(255,255,255,0.5)';
+          ctx.beginPath();
+          ctx.arc(col, row, 2, 0, Math.PI*2);
+          ctx.fill();
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      // Gold shimmer line
+      const shimmer = ctx.createLinearGradient(0, h*0.45, canvas.offsetWidth, h*0.55);
+      shimmer.addColorStop(0, 'transparent');
+      shimmer.addColorStop(0.5, 'rgba(201,168,76,0.25)');
+      shimmer.addColorStop(1, 'transparent');
+      ctx.fillStyle = shimmer;
+      ctx.fillRect(0, h*0.45, canvas.offsetWidth, h*0.1);
+
+      // "Scratch" text
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = 'rgba(255,255,255,0.2)';
+      ctx.font = `600 ${canvas.offsetWidth * 0.06}px "Cinzel", serif`;
+      ctx.textAlign = 'center';
+      ctx.letterSpacing = '0.3em';
+      ctx.fillText('✦  SCRATCH TO REVEAL  ✦', canvas.offsetWidth/2, h/2);
+
+      totalPixels = canvas.offsetWidth * h;
+    }
+
+    function getPos(e) {
+      const rect = canvas.getBoundingClientRect();
+      if (e.touches) {
+        return {
+          x: e.touches[0].clientX - rect.left,
+          y: e.touches[0].clientY - rect.top
+        };
+      }
+      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    }
+
+    function scratch(e) {
+      if (scratched) return;
+      e.preventDefault();
+      if (!isDrawing) return;
+      const ctx = canvas.getContext('2d');
+      const { x, y } = getPos(e);
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(x, y, 28, 0, Math.PI * 2);
+      ctx.fill();
+      hint.style.opacity = '0';
+      checkCompletion(ctx);
+    }
+
+    function checkCompletion(ctx) {
+      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      let cleared = 0;
+      for (let j = 3; j < data.length; j += 4) {
+        if (data[j] === 0) cleared++;
+      }
+      const pct = cleared / (data.length / 4);
+      if (pct > 0.55 && !scratched) {
+        scratched = true;
+        // Smooth reveal
+        canvas.style.transition = 'opacity 0.6s ease';
+        canvas.style.opacity = '0';
+        badge.classList.add('show');
+        // Spawn floating petals
+        spawnFloatingPetals(canvas);
+      }
+    }
+
+    canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
+    canvas.addEventListener('mousemove', scratch);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('touchstart', (e) => { e.preventDefault(); isDrawing = true; scratch(e); }, { passive: false });
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); scratch(e); }, { passive: false });
+    canvas.addEventListener('touchend', () => isDrawing = false);
+
+    // Init when visible
+    const obs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        initCanvas();
+        obs.disconnect();
+      }
+    }, { threshold: 0.1 });
+    obs.observe(canvas);
+  });
+
+  function spawnFloatingPetals(source) {
+    const rect = source.getBoundingClientRect();
+    const emojis = ['🌸','🌺','✨','🌸','💮','🌹'];
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        const p = document.createElement('div');
+        p.className = 'floating-petal';
+        p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        p.style.left = (rect.left + Math.random() * rect.width) + 'px';
+        p.style.top = (rect.top + rect.height * 0.5) + 'px';
+        p.style.animationDuration = (4 + Math.random() * 3) + 's';
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 7000);
+      }, i * 120);
+    }
+  }
+})();
+
+// ═══════════════════════════════════════════════
+//  SCROLL REVEAL
+// ═══════════════════════════════════════════════
+(function() {
+  const reveals = document.querySelectorAll('.reveal, .reveal-left');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => obs.observe(el));
+})();
+</script>
+</body>
+</html>
