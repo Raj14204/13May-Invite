@@ -169,6 +169,9 @@ function initHeroPetals() {
 /* ══════════════════════════════════════════════
    4. SCRATCH CARDS
 ══════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════
+   4. SCRATCH CARDS
+══════════════════════════════════════════════ */
 (function initScratch() {
   const CARD_COLORS = [
     ['#8B1A2A','#C0395A'],
@@ -178,88 +181,268 @@ function initHeroPetals() {
   ];
 
   document.querySelectorAll('.scratch-canvas').forEach((canvas, i) => {
-    const wrap     = canvas.closest('.scratch-canvas-wrap');
-    const cont     = canvas.closest('.scratch-container');
-    const hint     = wrap.querySelector('.scratch-hint');
-    const badge    = wrap.querySelector('.scratched-badge');
-    const reveal   = cont.querySelector('.scratch-reveal');
+    const wrap   = canvas.closest('.scratch-canvas-wrap');
+    const cont   = canvas.closest('.scratch-container');
+    const hint   = wrap.querySelector('.scratch-hint');
+    const badge  = wrap.querySelector('.scratched-badge');
+    const reveal = cont.querySelector('.scratch-reveal');
     const [c1, c2] = CARD_COLORS[i];
-    let scratched = false, isDrawing = false, inited = false;
+
+    let ctx, scratched = false, isDrawing = false;
+    let scratchedArea = 0;
+    let totalArea = 0;
 
     function initCanvas() {
-      if (inited) return; inited = true;
-      const W   = canvas.offsetWidth;
-      const H   = reveal.offsetHeight;
+      const W = canvas.offsetWidth;
+      const H = reveal.offsetHeight;
       const DPR = window.devicePixelRatio || 1;
-      canvas.width = W * DPR; canvas.height = H * DPR; canvas.style.height = H + 'px';
-      const ctx = canvas.getContext('2d');
+
+      canvas.width  = W * DPR;
+      canvas.height = H * DPR;
+      canvas.style.height = H + 'px';
+
+      ctx = canvas.getContext('2d');
       ctx.scale(DPR, DPR);
+
+      totalArea = W * H;
+
+      // gradient
       const grad = ctx.createLinearGradient(0, 0, W, H);
-      grad.addColorStop(0, c1); grad.addColorStop(1, c2);
-      ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
-      ctx.globalAlpha = 0.09;
-      for (let r = 0; r < H; r += 20) for (let c = 0; c < W; c += 20) {
-        ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(c, r, 1.4, 0, Math.PI * 2); ctx.fill();
+      grad.addColorStop(0, c1);
+      grad.addColorStop(1, c2);
+
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // text
+      ctx.fillStyle = 'rgba(255,255,255,0.25)';
+      ctx.font = `600 ${W * 0.05}px serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText('SCRATCH', W/2, H/2);
+    }
+
+    function scratch(x, y) {
+      if (scratched) return;
+
+      const radius = 28;
+
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 🔥 Estimate scratched area (fast & smooth)
+      scratchedArea += Math.PI * radius * radius * 0.45;
+
+      hint.style.opacity = '0';
+
+      if ((scratchedArea / totalArea) > 0.5) {
+        autoReveal();
       }
-      ctx.globalAlpha = 1;
-      const sh = ctx.createLinearGradient(0, H * 0.44, W, H * 0.56);
-      sh.addColorStop(0,'transparent'); sh.addColorStop(0.5,'rgba(201,168,76,0.22)'); sh.addColorStop(1,'transparent');
-      ctx.fillStyle = sh; ctx.fillRect(0, H * 0.44, W, H * 0.12);
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = 'rgba(255,255,255,0.22)';
-      ctx.font = `600 ${W * 0.054}px Cinzel, serif`;
-      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText('✦  SCRATCH TO REVEAL  ✦', W / 2, H / 2);
+    }
+
+    function autoReveal() {
+      if (scratched) return;
+      scratched = true;
+
+      // smooth fade
+      canvas.style.transition = 'opacity 0.5s ease';
+      canvas.style.opacity = '0';
+
+      hint.style.opacity = '0';
+      badge.classList.add('show');
+      cont.classList.add('scratched');
+
+      setTimeout(() => {
+        canvas.style.display = 'none';
+      }, 500);
+
+      // ✨ reveal animation
+      reveal.style.transform = 'scale(1.06)';
+      reveal.style.transition = 'all 0.4s ease';
+
+      setTimeout(() => {
+        reveal.style.transform = 'scale(1)';
+      }, 250);
+
+      burstPetals(canvas);
     }
 
     function getPos(e) {
-      const rect = canvas.getBoundingClientRect(), src = e.touches ? e.touches[0] : e;
-      return { x: src.clientX - rect.left, y: src.clientY - rect.top };
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches ? e.touches[0] : e;
+
+      return {
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top
+      };
     }
-    function doScratch(e) {
-      if (scratched || !isDrawing) return;
-      e.preventDefault();
-      const ctx = canvas.getContext('2d'), { x, y } = getPos(e);
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.beginPath(); ctx.arc(x, y, 30, 0, Math.PI * 2); ctx.fill();
-      hint.style.opacity = '0';
-      const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-      let cleared = 0;
-      for (let j = 3; j < data.length; j += 4) if (data[j] === 0) cleared++;
-      if (cleared / (data.length / 4) > 0.55) {
-        scratched = true; canvas.style.opacity = '0'; badge.classList.add('show'); burstPetals(canvas);
-      }
-    }
-    canvas.addEventListener('mousedown',  e => { isDrawing = true; doScratch(e); });
-    canvas.addEventListener('mousemove',  doScratch);
-    canvas.addEventListener('mouseup',    () => isDrawing = false);
+
+    // 🖱️ Mouse
+    canvas.addEventListener('mousedown', e => {
+      isDrawing = true;
+      scratch(...Object.values(getPos(e)));
+    });
+
+    canvas.addEventListener('mousemove', e => {
+      if (!isDrawing) return;
+      scratch(...Object.values(getPos(e)));
+    });
+
+    canvas.addEventListener('mouseup', () => isDrawing = false);
     canvas.addEventListener('mouseleave', () => isDrawing = false);
-    canvas.addEventListener('touchstart', e => { e.preventDefault(); isDrawing = true; doScratch(e); }, { passive: false });
-    canvas.addEventListener('touchmove',  e => { e.preventDefault(); doScratch(e); }, { passive: false });
-    canvas.addEventListener('touchend',   () => isDrawing = false);
+
+    // 📱 Touch (smooth + scroll friendly)
+    let startX = 0, startY = 0, isIntent = null;
+
+    canvas.addEventListener('touchstart', e => {
+      const t = e.touches[0];
+      startX = t.clientX;
+      startY = t.clientY;
+      isDrawing = true;
+      isIntent = null;
+    }, { passive: true });
+
+    canvas.addEventListener('touchmove', e => {
+      if (!isDrawing) return;
+
+      const t = e.touches[0];
+      const dx = Math.abs(t.clientX - startX);
+      const dy = Math.abs(t.clientY - startY);
+
+      if (isIntent === null && (dx > 5 || dy > 5)) {
+        isIntent = dx > dy; // horizontal = scratch
+      }
+
+      if (isIntent) {
+        e.preventDefault();
+        scratch(...Object.values(getPos(e)));
+      }
+
+    }, { passive: false });
+
+    canvas.addEventListener('touchend', () => {
+      isDrawing = false;
+      isIntent = null;
+    });
 
     new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) { initCanvas(); }
-    }, { threshold: 0.1 }).observe(canvas);
+      if (entries[0].isIntersecting) {
+        initCanvas();
+      }
+    }, { threshold: 0.2 }).observe(canvas);
   });
 
   function burstPetals(source) {
-    const rect   = source.getBoundingClientRect();
-    const emojis = ['🌸','🌺','✨','💮','🌹','🌸'];
+    const rect = source.getBoundingClientRect();
+    const emojis = ['🌸','✨','🌺','💮'];
+
     emojis.forEach((emoji, i) => {
       setTimeout(() => {
-        const p = document.createElement('div');
-        p.className = 'floating-petal';
-        p.textContent = emoji;
-        p.style.left = (rect.left + Math.random() * rect.width) + 'px';
-        p.style.top  = (rect.top + rect.height * 0.5) + 'px';
-        p.style.animationDuration = (4 + Math.random() * 3) + 's';
-        document.body.appendChild(p);
-        setTimeout(() => p.remove(), 8000);
-      }, i * 130);
+        const el = document.createElement('div');
+        el.className = 'floating-petal';
+        el.textContent = emoji;
+
+        el.style.left = rect.left + Math.random() * rect.width + 'px';
+        el.style.top  = rect.top + 'px';
+
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 4000);
+      }, i * 120);
     });
   }
 })();
+// (function initScratch() {
+//   const CARD_COLORS = [
+//     ['#8B1A2A','#C0395A'],
+//     ['#6B3A1F','#B5621A'],
+//     ['#1A3A2A','#2E7A4A'],
+//     ['#1A2A5A','#3A5A9B'],
+//   ];
+
+//   document.querySelectorAll('.scratch-canvas').forEach((canvas, i) => {
+//     const wrap     = canvas.closest('.scratch-canvas-wrap');
+//     const cont     = canvas.closest('.scratch-container');
+//     const hint     = wrap.querySelector('.scratch-hint');
+//     const badge    = wrap.querySelector('.scratched-badge');
+//     const reveal   = cont.querySelector('.scratch-reveal');
+//     const [c1, c2] = CARD_COLORS[i];
+//     let scratched = false, isDrawing = false, inited = false;
+
+//     function initCanvas() {
+//       if (inited) return; inited = true;
+//       const W   = canvas.offsetWidth;
+//       const H   = reveal.offsetHeight;
+//       const DPR = window.devicePixelRatio || 1;
+//       canvas.width = W * DPR; canvas.height = H * DPR; canvas.style.height = H + 'px';
+//       const ctx = canvas.getContext('2d');
+//       ctx.scale(DPR, DPR);
+//       const grad = ctx.createLinearGradient(0, 0, W, H);
+//       grad.addColorStop(0, c1); grad.addColorStop(1, c2);
+//       ctx.fillStyle = grad; ctx.fillRect(0, 0, W, H);
+//       ctx.globalAlpha = 0.09;
+//       for (let r = 0; r < H; r += 20) for (let c = 0; c < W; c += 20) {
+//         ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(c, r, 1.4, 0, Math.PI * 2); ctx.fill();
+//       }
+//       ctx.globalAlpha = 1;
+//       const sh = ctx.createLinearGradient(0, H * 0.44, W, H * 0.56);
+//       sh.addColorStop(0,'transparent'); sh.addColorStop(0.5,'rgba(201,168,76,0.22)'); sh.addColorStop(1,'transparent');
+//       ctx.fillStyle = sh; ctx.fillRect(0, H * 0.44, W, H * 0.12);
+//       ctx.globalCompositeOperation = 'source-over';
+//       ctx.fillStyle = 'rgba(255,255,255,0.22)';
+//       ctx.font = `600 ${W * 0.054}px Cinzel, serif`;
+//       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+//       ctx.fillText('✦  SCRATCH TO REVEAL  ✦', W / 2, H / 2);
+//     }
+
+//     function getPos(e) {
+//       const rect = canvas.getBoundingClientRect(), src = e.touches ? e.touches[0] : e;
+//       return { x: src.clientX - rect.left, y: src.clientY - rect.top };
+//     }
+//     function doScratch(e) {
+//       if (scratched || !isDrawing) return;
+//       e.preventDefault();
+//       const ctx = canvas.getContext('2d'), { x, y } = getPos(e);
+//       ctx.globalCompositeOperation = 'destination-out';
+//       ctx.beginPath(); ctx.arc(x, y, 30, 0, Math.PI * 2); ctx.fill();
+//       hint.style.opacity = '0';
+//       const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+//       let cleared = 0;
+//       for (let j = 3; j < data.length; j += 4) if (data[j] === 0) cleared++;
+//       if (cleared / (data.length / 4) > 0.55) {
+//         scratched = true; canvas.style.opacity = '0'; badge.classList.add('show'); burstPetals(canvas);
+//       }
+//     }
+//     canvas.addEventListener('mousedown',  e => { isDrawing = true; doScratch(e); });
+//     canvas.addEventListener('mousemove',  doScratch);
+//     canvas.addEventListener('mouseup',    () => isDrawing = false);
+//     canvas.addEventListener('mouseleave', () => isDrawing = false);
+//     canvas.addEventListener('touchstart', e => { e.preventDefault(); isDrawing = true; doScratch(e); }, { passive: false });
+//     canvas.addEventListener('touchmove',  e => { e.preventDefault(); doScratch(e); }, { passive: false });
+//     canvas.addEventListener('touchend',   () => isDrawing = false);
+
+//     new IntersectionObserver((entries) => {
+//       if (entries[0].isIntersecting) { initCanvas(); }
+//     }, { threshold: 0.1 }).observe(canvas);
+//   });
+
+//   function burstPetals(source) {
+//     const rect   = source.getBoundingClientRect();
+//     const emojis = ['🌸','🌺','✨','💮','🌹','🌸'];
+//     emojis.forEach((emoji, i) => {
+//       setTimeout(() => {
+//         const p = document.createElement('div');
+//         p.className = 'floating-petal';
+//         p.textContent = emoji;
+//         p.style.left = (rect.left + Math.random() * rect.width) + 'px';
+//         p.style.top  = (rect.top + rect.height * 0.5) + 'px';
+//         p.style.animationDuration = (4 + Math.random() * 3) + 's';
+//         document.body.appendChild(p);
+//         setTimeout(() => p.remove(), 8000);
+//       }, i * 130);
+//     });
+//   }
+// })();
 
 
 /* ══════════════════════════════════════════════
