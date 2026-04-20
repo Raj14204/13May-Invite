@@ -14,19 +14,12 @@
 <div id="splash">
   <div id="bokeh-wrap"></div>
   <div id="splash-overlay"></div>
-  <video id="bg-video" muted playsinline preload="metadata">
+  <video id="bg-video" muted playsinline preload="metadata"  preload="auto">
     <source src="Raja.mp4" type="video/mp4">
   </video>
   <div id="play-btn">
     <div class="play-icon">&#9654;</div>
     <p class="play-label">Tap to Play</p>
-  </div>
-  <div id="splash-scroll-arrow">
-    <span class="ssa-label">Scroll to explore</span>
-    <div class="ssa-chevrons">
-      <div class="ssa-chevron"></div>
-      <div class="ssa-chevron"></div>
-    </div>
   </div>
 </div>
 
@@ -43,10 +36,6 @@
     <div class="mandala-ring"></div>
     <div class="mandala-ring"></div>
     <div class="mandala-ring"></div>
-    <div class="hero-scroll-hint">
-      <span>Scroll</span>
-      <div class="scroll-arrow"></div>
-    </div>
   </section>
 
 
@@ -68,33 +57,16 @@
   </section>
 
 
-  <!-- ══════════════════════════════════
-       DETAILS SECTION (new)
-  ══════════════════════════════════ -->
+  <!-- ── DETAILS ── -->
   <section class="details-section">
-    <!-- <p class="section-label reveal">What's in store</p> -->
     <h2 class="section-title reveal">Details</h2>
     <div class="divider reveal">
       <div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line rev"></div>
     </div>
-
-    <!-- Details image placeholder -->
-    <!-- <div class="details-img-wrap reveal">
-      <img src="details.jpg" alt="Wedding Details" class="details-img"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="details-img-fallback">
-        <div class="details-fallback-icon">💍</div>
-        <p>Your photo here</p>
-      </div>
-    </div> -->
-
-    
   </section>
 
 
-  <!-- ══════════════════════════════════
-       VENUE & LOCATION SECTION (new)
-  ══════════════════════════════════ -->
+  <!-- ── VENUE & LOCATION ── -->
   <section class="venue-section">
     <p class="section-label reveal">Find Us Here</p>
     <h2 class="section-title reveal">Venue &amp; Location</h2>
@@ -102,9 +74,8 @@
       <div class="divider-line"></div><div class="divider-gem"></div><div class="divider-line rev"></div>
     </div>
 
-    <!-- Venue image placeholder -->
     <div class="venue-img-wrap reveal">
-      <img src="hawa-mahal-jaipur-rajasthan-breathtaking-example-indian-architecture_1003076-20094.avif" alt="Raj Mahal Gardens" class="venue-img"
+      <img src="WhatsApp Image 2026-04-18 at 10.30.20.jpeg" alt="The Maharaja Royal Resort" class="venue-img"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <div class="venue-img-fallback">
         <div class="venue-fallback-icon">🏛️</div>
@@ -112,16 +83,15 @@
       </div>
     </div>
 
-    <!-- Venue info card -->
     <div class="venue-card reveal">
       <div class="venue-card-inner">
         <div class="venue-icon-row">🌺</div>
-        <h3 class="venue-name">Raj Mahal Gardens</h3>
-        <p class="venue-addr">Survey No. 45, Baner Road,<br>Pune, Maharashtra 411045</p>
+        <h3 class="venue-name">The Maharaja Royal Resort</h3>
+        <p class="venue-addr">Maharaja The Royal Resort,<br>Mumbai, Maharashtra</p>
         <div class="venue-divider"></div>
         <div class="venue-detail-row">
           <span class="venue-detail-icon">📅</span>
-          <span class="venue-detail-text">May 13, 2026 · 11:00 AM onwards</span>
+          <span class="venue-detail-text">May 12–13, 2026 · Multiple Events</span>
         </div>
         <div class="venue-detail-row">
           <span class="venue-detail-icon">🚗</span>
@@ -129,10 +99,9 @@
         </div>
       </div>
 
-      <!-- Action buttons -->
       <div class="venue-btns">
         <a class="venue-btn venue-btn-maps"
-           href="https://maps.google.com/?q=Raj+Mahal+Gardens+Pune"
+           href="https://www.google.com/maps/place/Maharaja+The+Royal+Resort/@19.1959346,73.2246026,17z/data=!4m21!1m11!3m10!1s0x3be7930e3041b789:0xcf6d97cb3f8372fc!2sMaharaja+The+Royal+Resort!5m2!4m1!1i2!8m2!3d19.1959023!4d73.2244681!10e1!16s%2Fg%2F11j7gr26dn!3m8!1s0x3be7930e3041b789:0xcf6d97cb3f8372fc!5m2!4m1!1i2!8m2!3d19.1959023!4d73.2244681!16s%2Fg%2F11j7gr26dn?entry=ttu&g_ep=EgoyMDI2MDQxNS4wIKXMDSoASAFQAw%3D%3D"
            target="_blank" rel="noopener">
           <span class="vbtn-icon">📍</span>
           <span class="vbtn-label">Open in<br><strong>Google Maps</strong></span>
@@ -158,7 +127,6 @@
           <div class="cal-day-name">Thu</div>
           <div class="cal-day-name">Fri</div>
           <div class="cal-day-name">Sat</div>
-          <!-- Week 1: May starts on Friday -->
           <div class="cal-day cal-empty"></div>
           <div class="cal-day cal-empty"></div>
           <div class="cal-day cal-empty"></div>
@@ -166,7 +134,6 @@
           <div class="cal-day cal-empty"></div>
           <div class="cal-day">1</div>
           <div class="cal-day">2</div>
-          <!-- Week 2 -->
           <div class="cal-day">3</div>
           <div class="cal-day">4</div>
           <div class="cal-day">5</div>
@@ -174,15 +141,13 @@
           <div class="cal-day">7</div>
           <div class="cal-day">8</div>
           <div class="cal-day">9</div>
-          <!-- Week 3 -->
-          <div class="cal-day">10</div>
+          <div class="cal-day cal-prewedding" title="Pre-Wedding Bash">10</div>
           <div class="cal-day">11</div>
-          <div class="cal-day cal-event" title="Haldi & Mehendi">12</div>
-          <div class="cal-day cal-wedding" title="Wedding Day!">13</div>
+          <div class="cal-day cal-event" title="Sakharpuda · Haldi · Sangeet">12</div>
+          <div class="cal-day cal-wedding" title="Wedding &amp; Reception">13</div>
           <div class="cal-day">14</div>
           <div class="cal-day">15</div>
           <div class="cal-day">16</div>
-          <!-- Week 4 -->
           <div class="cal-day">17</div>
           <div class="cal-day">18</div>
           <div class="cal-day">19</div>
@@ -190,7 +155,6 @@
           <div class="cal-day">21</div>
           <div class="cal-day">22</div>
           <div class="cal-day">23</div>
-          <!-- Week 5 -->
           <div class="cal-day">24</div>
           <div class="cal-day">25</div>
           <div class="cal-day">26</div>
@@ -198,7 +162,6 @@
           <div class="cal-day">28</div>
           <div class="cal-day">29</div>
           <div class="cal-day">30</div>
-          <!-- Week 6 -->
           <div class="cal-day">31</div>
           <div class="cal-day cal-empty"></div>
           <div class="cal-day cal-empty"></div>
@@ -208,8 +171,9 @@
           <div class="cal-day cal-empty"></div>
         </div>
         <div class="mini-cal-legend">
-          <span class="cal-legend-dot cal-legend-event"></span><span>Haldi &amp; Mehendi (May 12)</span>
-          <span class="cal-legend-dot cal-legend-wedding"></span><span>Wedding Day (May 13)</span>
+          <span class="cal-legend-dot cal-legend-prewedding"></span><span>Pre-Wedding Bash (May 10)</span>
+          <span class="cal-legend-dot cal-legend-event"></span><span>Sakharpuda · Haldi · Sangeet (May 12)</span>
+          <span class="cal-legend-dot cal-legend-wedding"></span><span>Wedding &amp; Reception (May 13)</span>
         </div>
       </div>
     </div>
@@ -226,12 +190,50 @@
     </div>
     <p class="events-intro reveal">Scratch each card to discover our wedding events ✨</p>
 
+    <!-- Card 1: Pre Wedding Bash — deep purple/magenta -->
     <div class="scratch-container reveal" style="transition-delay:.05s">
       <div class="scratch-reveal">
-        <div class="event-badge">Day 1 · Morning</div>
+        <div class="event-badge">May 10 · Evening</div>
+        <div class="event-name">Pre-Wedding Bash</div>
+        <div class="event-detail"><span class="event-icon">🎉</span><span class="event-text">Mehendi Carnival</span></div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 10, 2026 · 6:00 PM Onwards</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Priyanka's Residence, Mumbai</span></div>
+        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Festive &amp; Colourful</span></div>
+        <img src="ee15edb92252e215f19db1f948013253.jpg" class="event-image" />
+      </div>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas"></canvas>
+        <div class="scratch-hint">✦ Scratch me ✦</div>
+        <div class="scratched-badge">✓</div>
+      </div>
+    </div>
+
+    <!-- Card 2: Sakharpuda / Engagement — gold/amber -->
+    <div class="scratch-container reveal" style="transition-delay:.10s">
+      <div class="scratch-reveal">
+        <div class="event-badge">May 12 · Morning</div>
+        <div class="event-name">Sakharpuda</div>
+        <div class="event-detail"><span class="event-icon">💍</span><span class="event-text">Engagement Ceremony</span></div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 11:00 AM</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">The Maharaja Royal Resort</span></div>
+        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Traditional Elegance</span></div>
+        <img src="5a1aec662c66e29e2681f9f67a411162.jpg" class="event-image" />
+      </div>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas"></canvas>
+        <div class="scratch-hint">✦ Scratch me ✦</div>
+        <div class="scratched-badge">✓</div>
+      </div>
+    </div>
+
+    <!-- Card 3: Haldi — sunshine yellow/orange -->
+    <div class="scratch-container reveal" style="transition-delay:.15s">
+      <div class="scratch-reveal">
+        <div class="event-badge">May 12 · Afternoon</div>
         <div class="event-name">Haldi Ceremony</div>
-        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 10:00 AM</span></div>
-        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Raj Mahal Banquet, Pune</span></div>
+        <div class="event-detail"><span class="event-icon">🌼</span><span class="event-text">Turmeric &amp; Blessings</span></div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 3:00 PM</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">The Maharaja Royal Resort</span></div>
         <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Yellow &amp; White</span></div>
         <img src="a4f5c79c9e6b25349db307c989a127be.jpg" class="event-image" />
       </div>
@@ -242,32 +244,16 @@
       </div>
     </div>
 
-    <div class="scratch-container reveal" style="transition-delay:.15s">
+    <!-- Card 4: Sangeet — deep teal/peacock -->
+    <div class="scratch-container reveal" style="transition-delay:.20s">
       <div class="scratch-reveal">
-        <div class="event-badge">Day 1 · Evening</div>
-        <div class="event-name">Mehendi Night</div>
-        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 6:00 PM</span></div>
-        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Priyanka's Residence, Pune</span></div>
-        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Greens &amp; Pinks</span></div>
-        <img src="ee15edb92252e215f19db1f948013253.jpg" class="event-image" />
-
-      </div>
-      <div class="scratch-canvas-wrap">
-        <canvas class="scratch-canvas"></canvas>
-        <div class="scratch-hint">✦ Scratch me ✦</div>
-        <div class="scratched-badge">✓</div>
-      </div>
-    </div>
-
-    <div class="scratch-container reveal" style="transition-delay:.25s">
-      <div class="scratch-reveal">
-        <div class="event-badge">Day 2 · Night</div>
+        <div class="event-badge">May 12 · Night</div>
         <div class="event-name">Sangeet Evening</div>
-        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 8:00 PM</span></div>
-        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Raj Mahal Banquet, Pune</span></div>
+        <div class="event-detail"><span class="event-icon">🎶</span><span class="event-text">Music &amp; Dance Night</span></div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 12, 2026 · 9:00 PM Onwards</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">The Maharaja Royal Resort</span></div>
         <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Glam &amp; Festive</span></div>
         <img src="a985811e8fd6b4825da0c84d3c558264.jpg" class="event-image" />
-
       </div>
       <div class="scratch-canvas-wrap">
         <canvas class="scratch-canvas"></canvas>
@@ -276,15 +262,34 @@
       </div>
     </div>
 
-    <div class="scratch-container reveal" style="transition-delay:.35s">
+    <!-- Card 5: Wedding — deep crimson/gold -->
+    <div class="scratch-container reveal" style="transition-delay:.25s">
       <div class="scratch-reveal">
         <div class="event-badge">The Big Day ♥</div>
         <div class="event-name">Wedding Ceremony</div>
-        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 13, 2026 · 11:00 AM</span></div>
-        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">Raj Mahal Gardens, Pune</span></div>
+        <div class="event-detail"><span class="event-icon">🕌</span><span class="event-text">Sacred Vows &amp; Rituals</span></div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 13, 2026 · 5:30 PM</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">The Maharaja Royal Resort</span></div>
         <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Traditional Attire</span></div>
         <img src="5a1aec662c66e29e2681f9f67a411162.jpg" class="event-image" />
+      </div>
+      <div class="scratch-canvas-wrap">
+        <canvas class="scratch-canvas"></canvas>
+        <div class="scratch-hint">✦ Scratch me ✦</div>
+        <div class="scratched-badge">✓</div>
+      </div>
+    </div>
 
+    <!-- Card 6: Reception — midnight navy/silver -->
+    <div class="scratch-container reveal" style="transition-delay:.30s">
+      <div class="scratch-reveal">
+        <div class="event-badge">May 13 · Evening</div>
+        <div class="event-name">Reception</div>
+        <div class="event-detail"><span class="event-icon">🥂</span><span class="event-text">Dinner &amp; Celebrations</span></div>
+        <div class="event-detail"><span class="event-icon">📅</span><span class="event-text">May 13, 2026 · 7:30 PM Onwards</span></div>
+        <div class="event-detail"><span class="event-icon">📍</span><span class="event-text">The Maharaja Royal Resort</span></div>
+        <div class="event-detail"><span class="event-icon">👗</span><span class="event-text">Dress Code: Black Tie / Formal</span></div>
+        <img src="a985811e8fd6b4825da0c84d3c558264.jpg" class="event-image" />
       </div>
       <div class="scratch-canvas-wrap">
         <canvas class="scratch-canvas"></canvas>
@@ -317,7 +322,7 @@
   <!-- ── FOOTER ── -->
   <footer class="footer-section">
     <div class="footer-logo">Raja &amp; Priyanka</div>
-    <p class="footer-tagline">May 13 &middot; 2026 &middot; Pune</p>
+    <p class="footer-tagline">May 13 &middot; 2026 &middot; Mumbai</p>
     <div class="footer-sep"></div>
     <p class="footer-credit">Website crafted with love by</p>
     <p class="footer-name">Prathamesh Majalkar</p>
@@ -331,7 +336,6 @@
 <script src="script.js"></script>
 
 <script>
-/* Mini calendar toggle */
 function toggleCalendar() {
   const cal = document.getElementById('mini-cal');
   const isHidden = cal.style.display === 'none';

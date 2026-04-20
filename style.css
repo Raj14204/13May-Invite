@@ -84,18 +84,6 @@ body {
 @keyframes pulse-play { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: 0.7; } }
 .play-label { font-family: 'Cinzel', serif; font-size: clamp(0.55rem, 2.2vw, 0.72rem); letter-spacing: 0.32em; color: var(--gold-light); text-transform: uppercase; animation: fade-blink 2s ease-in-out infinite; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
 @keyframes fade-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
-#splash-scroll-arrow {
-  position: absolute; bottom: clamp(1.5rem, 5vh, 2.5rem); left: 50%; transform: translateX(-50%);
-  z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-  opacity: 0; pointer-events: none; transition: opacity 0.9s ease; cursor: pointer;
-}
-#splash-scroll-arrow.show { opacity: 1; pointer-events: auto; animation: bounce-arrow 2s ease-in-out infinite; }
-@keyframes bounce-arrow { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(9px); } }
-.ssa-label { font-family: 'Cinzel', serif; font-size: clamp(0.5rem, 2vw, 0.58rem); letter-spacing: 0.35em; color: var(--gold-light); text-transform: uppercase; text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
-.ssa-chevrons { display: flex; flex-direction: column; align-items: center; gap: 2px; }
-.ssa-chevron { width: 15px; height: 15px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: rotate(45deg); }
-.ssa-chevron:nth-child(1) { opacity: 0.9; }
-.ssa-chevron:nth-child(2) { opacity: 0.4; margin-top: -5px; }
 
 
 /* ══════════════════════════════════════════
@@ -129,10 +117,6 @@ body {
 .mandala-ring:nth-child(4) { width: 250px; height: 250px; border: 1px solid rgba(192,57,90,0.15); animation-direction: reverse; animation-duration: 28s; }
 .mandala-ring:nth-child(5) { width: 200px; height: 200px; border: 1px dashed rgba(201,168,76,0.12); animation-duration: 20s; }
 @keyframes slow-spin { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
-.hero-scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; animation: bounce 2.2s ease-in-out infinite; z-index: 3; }
-.hero-scroll-hint span { font-family: 'Cinzel', serif; font-size: 0.52rem; letter-spacing: 0.32em; color: var(--crimson); opacity: 0.7; }
-.scroll-arrow { width: 18px; height: 18px; border-right: 1.5px solid var(--crimson); border-bottom: 1.5px solid var(--crimson); transform: rotate(45deg); opacity: 0.6; }
-@keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
 
 
 /* ══════════════════════════════════════════
@@ -169,121 +153,7 @@ section { padding: 3.5rem 1.5rem; position: relative; }
 /* ══════════════════════════════════════════
    DETAILS SECTION
 ══════════════════════════════════════════ */
-.details-section {
-  background: #fff;
-  padding-bottom: 3rem;
-}
-
-/* Image placeholder */
-.details-img-wrap {
-  width: 100%;
-  height: 220px;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-bottom: 1.8rem;
-  box-shadow: 0 10px 40px rgba(139,26,42,0.1);
-  position: relative;
-  /* background: linear-gradient(135deg, #f7e8ee, #edd8e5); */
-}
-.details-img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.details-img-fallback {
-  display: none;
-  width: 100%; height: 100%;
-  align-items: center; justify-content: center;
-  flex-direction: column; gap: 0.5rem;
-  background: linear-gradient(135deg, #f7e8ee 0%, #edd8e5 100%);
-}
-.details-fallback-icon { font-size: 3rem; }
-.details-img-fallback p { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--crimson); opacity: 0.7; font-size: 1rem; }
-
-/* Event detail cards */
-.details-cards { display: flex; flex-direction: column; gap: 0.9rem; }
-
-.detail-card {
-  display: flex;
-  background: #fff;
-  border: 1px solid rgba(201,168,76,0.2);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(139,26,42,0.07);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.event-image {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  width: 90px;
-  height: 90px;
-  object-fit: cover;
-
-  border-radius: 12px;
-  opacity: 0;
-  transform: scale(0.8);
-
-  transition: all 0.4s ease;
-}
-
-/* when revealed */
-.scratch-container.scratched .event-image {
-  opacity: 1;
-  transform: scale(1);
-}
-.detail-card:active { transform: scale(0.99); }
-
-.detail-card-highlight {
-  border-color: rgba(201,168,76,0.4);
-  box-shadow: 0 6px 28px rgba(201,168,76,0.18);
-}
-
-.detail-card-accent {
-  width: 5px;
-  flex-shrink: 0;
-  border-radius: 0;
-}
-
-.detail-card-body {
-  padding: 1.1rem 1.2rem;
-  flex: 1;
-}
-
-.detail-badge {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--crimson), var(--deep-rose));
-  color: #fff;
-  font-family: 'Cinzel', serif;
-  font-size: 0.46rem;
-  letter-spacing: 0.18em;
-  padding: 0.18rem 0.65rem;
-  border-radius: 20px;
-  margin-bottom: 0.4rem;
-  text-transform: uppercase;
-}
-.detail-badge-gold {
-  background: linear-gradient(135deg, #B8860B, var(--gold));
-}
-
-.detail-name {
-  font-family: 'Great Vibes', cursive;
-  font-size: 1.85rem;
-  color: var(--crimson);
-  line-height: 1.1;
-  margin-bottom: 0.35rem;
-}
-
-.detail-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.45rem;
-  margin-top: 0.28rem;
-}
-.detail-icon { font-size: 0.82rem; flex-shrink: 0; margin-top: 2px; }
-.detail-row span:last-child {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.88rem;
-  color: var(--dark);
-  opacity: 0.72;
-  line-height: 1.5;
-}
+.details-section { background: #fff; padding-bottom: 3rem; }
 
 
 /* ══════════════════════════════════════════
@@ -296,16 +166,9 @@ section { padding: 3.5rem 1.5rem; position: relative; }
   border-top: 1px solid rgba(201,168,76,0.15);
 }
 
-/* Venue image */
 .venue-img-wrap {
-  width: 100%;
-  height: 220px;
-  border-radius: 20px;
-  overflow: hidden;
-  margin-bottom: 1.5rem;
-  /* box-shadow: 0 10px 40px rgba(139,26,42,0.12); */
-  position: relative;
-  /* background: linear-gradient(135deg, #f7e8ee, #edd8e5); */
+  width: 100%; height: 220px; border-radius: 20px; overflow: hidden;
+  margin-bottom: 1.5rem; position: relative;
 }
 .venue-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .venue-img-fallback {
@@ -317,13 +180,9 @@ section { padding: 3.5rem 1.5rem; position: relative; }
 .venue-fallback-icon { font-size: 3rem; }
 .venue-img-fallback p { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--crimson); opacity: 0.7; font-size: 1rem; }
 
-/* Venue card */
 .venue-card {
-  background: #fff;
-  border: 1px solid rgba(201,168,76,0.3);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 4px 24px rgba(139,26,42,0.08), 0 1px 0 rgba(201,168,76,0.2) inset;
+  background: #fff; border: 1px solid rgba(201,168,76,0.3); border-radius: 20px;
+  overflow: hidden; box-shadow: 0 4px 24px rgba(139,26,42,0.08), 0 1px 0 rgba(201,168,76,0.2) inset;
 }
 .venue-card.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.85s ease, transform 0.85s ease; }
 .venue-card.reveal.visible { opacity: 1; transform: translateY(0); }
@@ -336,15 +195,11 @@ section { padding: 3.5rem 1.5rem; position: relative; }
 .venue-detail-icon { font-size: 0.9rem; flex-shrink: 0; margin-top: 2px; }
 .venue-detail-text { font-family: 'Cormorant Garamond', serif; font-size: 0.92rem; color: var(--dark); opacity: 0.72; line-height: 1.5; }
 
-/* Action buttons */
 .venue-btns { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(201,168,76,0.2); }
 .venue-btn {
   display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-  padding: 1.1rem 0.8rem;
-  text-decoration: none; cursor: pointer;
-  transition: background 0.25s ease;
-  background: #fff; border: none; outline: none;
-  font-family: inherit;
+  padding: 1.1rem 0.8rem; text-decoration: none; cursor: pointer;
+  transition: background 0.25s ease; background: #fff; border: none; outline: none; font-family: inherit;
 }
 .venue-btn:first-child { border-right: 1px solid rgba(201,168,76,0.2); }
 .venue-btn:hover, .venue-btn:active { background: #fff8f0; }
@@ -354,58 +209,30 @@ section { padding: 3.5rem 1.5rem; position: relative; }
 
 
 /* ── Mini Calendar ── */
-.mini-cal-wrap {
-  margin-top: 1.2rem;
-}
-.mini-cal {
-  background: #fff;
-  border: 1px solid rgba(201,168,76,0.3);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 4px 24px rgba(139,26,42,0.08);
-}
-.mini-cal-header {
-  background: linear-gradient(135deg, var(--crimson), var(--deep-rose));
-  padding: 1rem 1.5rem;
-  text-align: center;
-}
-.mini-cal-month {
-  font-family: 'Cinzel', serif;
-  font-size: 0.88rem;
-  letter-spacing: 0.25em;
-  color: #fff;
-  text-transform: uppercase;
-}
-.mini-cal-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 0;
-  padding: 0.8rem;
-}
-.cal-day-name {
-  font-family: 'Cinzel', serif;
-  font-size: 0.48rem;
-  letter-spacing: 0.1em;
-  color: var(--crimson);
-  text-transform: uppercase;
-  text-align: center;
-  padding: 0.35rem 0;
-  opacity: 0.7;
-}
-.cal-day {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.9rem;
-  color: var(--dark);
-  text-align: center;
-  padding: 0.42rem 0.1rem;
-  border-radius: 50%;
-  cursor: default;
-  position: relative;
-  line-height: 1;
-}
+.mini-cal-wrap { margin-top: 1.2rem; }
+.mini-cal { background: #fff; border: 1px solid rgba(201,168,76,0.3); border-radius: 20px; overflow: hidden; box-shadow: 0 4px 24px rgba(139,26,42,0.08); }
+.mini-cal-header { background: linear-gradient(135deg, var(--crimson), var(--deep-rose)); padding: 1rem 1.5rem; text-align: center; }
+.mini-cal-month { font-family: 'Cinzel', serif; font-size: 0.88rem; letter-spacing: 0.25em; color: #fff; text-transform: uppercase; }
+.mini-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; padding: 0.8rem; }
+.cal-day-name { font-family: 'Cinzel', serif; font-size: 0.48rem; letter-spacing: 0.1em; color: var(--crimson); text-transform: uppercase; text-align: center; padding: 0.35rem 0; opacity: 0.7; }
+.cal-day { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; color: var(--dark); text-align: center; padding: 0.42rem 0.1rem; border-radius: 50%; cursor: default; position: relative; line-height: 1; }
 .cal-day.cal-empty { opacity: 0; pointer-events: none; }
 
-/* Haldi/Mehendi day — rose dot */
+/* Pre-wedding — purple dot */
+.cal-day.cal-prewedding {
+  background: rgba(74,16,96,0.1);
+  color: #7B2D8A;
+  font-weight: 600;
+  border-radius: 8px;
+}
+.cal-day.cal-prewedding::after {
+  content: '';
+  display: block; width: 4px; height: 4px;
+  background: #9B2D6A; border-radius: 50%;
+  margin: 2px auto 0;
+}
+
+/* Haldi/Sangeet/Engagement — rose dot */
 .cal-day.cal-event {
   background: rgba(192,57,90,0.12);
   color: var(--deep-rose);
@@ -414,10 +241,8 @@ section { padding: 3.5rem 1.5rem; position: relative; }
 }
 .cal-day.cal-event::after {
   content: '';
-  display: block;
-  width: 4px; height: 4px;
-  background: var(--deep-rose);
-  border-radius: 50%;
+  display: block; width: 4px; height: 4px;
+  background: var(--deep-rose); border-radius: 50%;
   margin: 2px auto 0;
 }
 
@@ -431,34 +256,20 @@ section { padding: 3.5rem 1.5rem; position: relative; }
 }
 .cal-day.cal-wedding::after {
   content: '♥';
-  display: block;
-  font-size: 0.42rem;
-  text-align: center;
-  color: rgba(255,255,255,0.8);
-  margin-top: 1px;
+  display: block; font-size: 0.42rem;
+  text-align: center; color: rgba(255,255,255,0.8); margin-top: 1px;
 }
 
-/* Legend */
 .mini-cal-legend {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem 0.8rem;
-  padding: 0.8rem 1rem;
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 0.35rem 0.8rem; padding: 0.8rem 1rem;
   border-top: 1px solid rgba(201,168,76,0.15);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.8rem;
-  color: var(--dark);
-  opacity: 0.72;
+  font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; color: var(--dark); opacity: 0.72;
 }
-.cal-legend-dot {
-  display: inline-block;
-  width: 10px; height: 10px;
-  border-radius: 3px;
-  flex-shrink: 0;
-}
-.cal-legend-event   { background: rgba(192,57,90,0.3); }
-.cal-legend-wedding { background: linear-gradient(135deg, var(--crimson), var(--deep-rose)); }
+.cal-legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.cal-legend-prewedding { background: rgba(74,16,96,0.4); }
+.cal-legend-event      { background: rgba(192,57,90,0.3); }
+.cal-legend-wedding    { background: linear-gradient(135deg, var(--crimson), var(--deep-rose)); }
 
 
 /* ══════════════════════════════════════════
@@ -478,6 +289,14 @@ section { padding: 3.5rem 1.5rem; position: relative; }
 .scratch-hint { position: absolute; bottom: 9px; right: 13px; font-family: 'Cinzel', serif; font-size: 0.48rem; letter-spacing: 0.14em; color: rgba(255,255,255,0.55); text-transform: uppercase; pointer-events: none; transition: opacity 0.3s; }
 .scratched-badge { display: none; position: absolute; top: 8px; right: 8px; background: var(--gold); color: #fff; border-radius: 50%; width: 28px; height: 28px; align-items: center; justify-content: center; font-size: 0.85rem; box-shadow: 0 2px 8px rgba(0,0,0,0.18); }
 .scratched-badge.show { display: flex; }
+
+.event-image {
+  position: absolute; bottom: 12px; right: 12px;
+  width: 90px; height: 90px; object-fit: cover;
+  border-radius: 12px; opacity: 0; transform: scale(0.8);
+  transition: all 0.4s ease;
+}
+.scratch-container.scratched .event-image { opacity: 1; transform: scale(1); }
 
 
 /* ══════════════════════════════════════════
