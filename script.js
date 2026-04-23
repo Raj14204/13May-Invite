@@ -52,6 +52,7 @@
     mainPage.classList.add('visible');
     window.scrollTo({ top: 0, behavior: 'instant' });
     setTimeout(initHeroPetals, 500);
+    setTimeout(initHeroScrollPeek, 600);
     setTimeout(() => { if (splash.parentNode) splash.remove(); }, 1000);
   }
 
@@ -446,3 +447,41 @@ function initHeroPetals() {
   );
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 })();
+/* ══════════════════════════════════════════
+   7. HERO AUTO-SCROLL PEEK
+══════════════════════════════════════════ */
+function initHeroScrollPeek() {
+  const hero = document.querySelector('.hero');
+  const video = document.querySelector('.hero-video');
+  let peeked = false;
+
+  function doPeek() {
+    if (peeked) return;
+    peeked = true;
+
+    const peekAmount = window.innerHeight * 0.28; // scroll down 28% of screen
+
+    // Smooth scroll down
+    window.scrollTo({ top: peekAmount, behavior: 'smooth' });
+
+    // After a short pause, scroll back up
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1200);
+  }
+
+  // Trigger peek when hero video ends
+  if (video) {
+    video.addEventListener('ended', () => {
+      setTimeout(doPeek, 600); // slight delay after video ends
+    });
+
+    // Fallback: if video is very long or doesn't fire ended, peek after 8s
+    setTimeout(() => {
+      if (!peeked) doPeek();
+    }, 8000);
+  } else {
+    // No video — peek after 3s
+    setTimeout(doPeek, 3000);
+  }
+}

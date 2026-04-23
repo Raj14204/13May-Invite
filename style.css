@@ -371,3 +371,58 @@ section { padding: 3.5rem 1.5rem; position: relative; }
 .lightbox .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); font-size: 50px; color: white; cursor: pointer; user-select: none; }
 .lightbox .prev-btn { left: 20px; }
 .lightbox .next-btn { right: 20px; }
+/* ══════════════════════════════════════════
+   SCROLL DOWN HINT
+══════════════════════════════════════════ */
+.container_mouse {
+  position: absolute;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  animation: fade-in-up 1.2s ease 1.5s both;
+}
+
+.container_mouse span:last-child {
+  font-family: 'Cinzel', serif;
+  font-size: 0.5rem;
+  letter-spacing: 0.38em;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+  opacity: 0.85;
+}
+
+.mouse-btn {
+  margin: 0 auto;
+  width: 30px;
+  height: 50px;
+  border: 2px solid var(--gold);
+  border-radius: 20px;
+  display: flex;
+  box-shadow: 0 0 10px rgba(201,168,76,0.3);
+}
+
+.mouse-scroll {
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(170deg, var(--gold-light), var(--gold));
+  border-radius: 50%;
+  margin: auto;
+  animation: scrolling13 1s linear infinite;
+}
+
+@keyframes scrolling13 {
+  0%   { opacity: 0; transform: translateY(-12px); }
+  100% { opacity: 1; transform: translateY(12px);  }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateX(-50%) translateY(16px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0);    }
+}
