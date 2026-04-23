@@ -2,17 +2,14 @@
    RAJA & PRIYANKA WEDDING — script.js
 
    SPLASH FLOW:
-   1. Page loads  → Bokeh + names shown. Video paused. Play button visible.
-   2. User taps play button → names + play btn fade out. Video plays once.
-   3. Video ends  → Splash auto-dismisses to hero. No scroll needed.
+   1. Page loads  → Video poster shown. Tap anywhere to play.
+   2. User taps anywhere on splash → Video plays once.
+   3. Video ends  → Splash auto-dismisses to hero.
    ═══════════════════════════════════════════ */
-
 (function initSplash() {
   const splash      = document.getElementById('splash');
   const mainPage    = document.getElementById('main-page');
   const video       = document.getElementById('bg-video');
-  const overlay     = document.getElementById('splash-overlay');
-  const playBtn     = document.getElementById('play-btn');
   const bokeh       = document.getElementById('bokeh-wrap');
 
   /* ── Bokeh particles ── */
@@ -35,10 +32,16 @@
     bokeh.appendChild(d);
   }
 
-  let tapped     = false;
-  let dismissed  = false;
+  // Hide the tap hint immediately — no play button shown
+  const tapHint = document.getElementById('tap-hint');
+  if (tapHint) tapHint.style.display = 'none';
 
-  /* ── Dismiss: slide splash up, show main page ── */
+  // Make video visible right away
+  video.style.opacity = '1';
+
+  let tapped    = false;
+  let dismissed = false;
+
   function dismissSplash() {
     if (dismissed) return;
     dismissed = true;
@@ -47,43 +50,185 @@
     splash.style.opacity       = '0';
     splash.style.pointerEvents = 'none';
     mainPage.classList.add('visible');
-    window.scrollTo({ top: 800, behavior: 'instant' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
     setTimeout(initHeroPetals, 500);
     setTimeout(() => { if (splash.parentNode) splash.remove(); }, 1000);
   }
 
-  /* ── After video ends — auto dismiss ── */
   video.addEventListener('ended', function() {
-    // Small delay for a graceful transition
     setTimeout(dismissSplash, 400);
   });
 
-  /* ── Play button tap / click ── */
   function startVideo() {
+      const audio = document.getElementById('bg-music');
+  if (audio) {
+    audio.currentTime = 0;
+    audio.volume = 0.35;
+    audio.play().catch(() => {});
+  }
     if (tapped) return;
-    tapped          = true;
-    video.loop      = false;
+    tapped = true;
+    video.loop = false;
     video.currentTime = 0;
-
-    overlay.style.transition = 'opacity 0.4s ease';
-    overlay.style.opacity    = '0';
-    setTimeout(() => { overlay.style.display = 'none'; }, 420);
-
-    playBtn.classList.add('hidden');
-
-    video.play()
-      .then(() => { video.style.opacity = '1'; })
-      .catch(() => { dismissSplash(); }); // blocked fallback
+    video.play().catch(() => { dismissSplash(); });
   }
 
-  playBtn.addEventListener('click', (e) => { e.stopPropagation(); startVideo(); });
-  playBtn.addEventListener('touchend', (e) => { e.stopPropagation(); e.preventDefault(); startVideo(); }, { passive: false });
+  splash.addEventListener('click', startVideo);
+  splash.addEventListener('touchend', (e) => { e.preventDefault(); startVideo(); }, { passive: false });
+
 
 })();
+// (function initSplash() {
+//   const splash      = document.getElementById('splash');
+//   const mainPage    = document.getElementById('main-page');
+//   const video       = document.getElementById('bg-video');
+//   const bokeh       = document.getElementById('bokeh-wrap');
+
+//   /* ── Bokeh particles ── */
+//   for (let i = 0; i < 22; i++) {
+//     const d    = document.createElement('div');
+//     const size = Math.random() * 90 + 20;
+//     d.style.cssText = `
+//       position:absolute;
+//       width:${size}px; height:${size}px;
+//       border-radius:50%;
+//       background:radial-gradient(circle,
+//         rgba(201,168,76,${(Math.random() * 0.18 + 0.04).toFixed(2)}) 0%,
+//         transparent 70%);
+//       left:${(Math.random() * 110 - 5).toFixed(1)}%;
+//       top:${(Math.random() * 110 - 5).toFixed(1)}%;
+//       animation:pulse-play ${(3 + Math.random() * 4).toFixed(1)}s ease-in-out infinite;
+//       animation-delay:${(Math.random() * 4).toFixed(1)}s;
+//       pointer-events:none;
+//     `;
+//     bokeh.appendChild(d);
+//   }
+
+//   // Show tap hint label
+//   const tapHint = document.getElementById('tap-hint');
+
+//   let tapped     = false;
+//   let dismissed  = false;
+
+//   /* ── Dismiss: slide splash up, show main page ── */
+//   function dismissSplash() {
+//     if (dismissed) return;
+//     dismissed = true;
+//     splash.style.transition    = 'transform 0.9s cubic-bezier(0.76,0,0.24,1), opacity 0.6s ease';
+//     splash.style.transform     = 'translateX(-50%) translateY(-100%)';
+//     splash.style.opacity       = '0';
+//     splash.style.pointerEvents = 'none';
+//     mainPage.classList.add('visible');
+//     window.scrollTo({ top: 0, behavior: 'instant' });
+//     setTimeout(initHeroPetals, 500);
+//     setTimeout(() => { if (splash.parentNode) splash.remove(); }, 1000);
+//   }
+
+//   /* ── After video ends — auto dismiss ── */
+//   video.addEventListener('ended', function() {
+//     setTimeout(dismissSplash, 400);
+//   });
+
+//   /* ── Tap/click anywhere on splash to start video ── */
+//   function startVideo() {
+//     if (tapped) return;
+//     tapped = true;
+
+//     if (tapHint) {
+//       tapHint.style.transition = 'opacity 0.3s ease';
+//       tapHint.style.opacity = '0';
+//     }
+
+//     video.loop = false;
+//     video.currentTime = 0;
+
+//     video.play()
+//       .then(() => { video.style.opacity = '1'; })
+//       .catch(() => { dismissSplash(); }); // blocked fallback
+//   }
+
+//   splash.addEventListener('click', startVideo);
+//   splash.addEventListener('touchend', (e) => { e.preventDefault(); startVideo(); }, { passive: false });
+
+// })();
 
 
 /* ══════════════════════════════════════════════
-   2. HERO — FALLING PETALS
+   2. BACKGROUND MUSIC
+══════════════════════════════════════════════ */
+(function initMusic() {
+  const audio = document.getElementById('bg-music');
+  const btn   = document.getElementById('music-btn');
+  const icon  = document.getElementById('music-icon');
+  if (!audio || !btn) return;
+
+  let muted   = false;
+  let started = false;
+
+  function tryPlay() {
+    if (started) return;
+    started = true;
+    audio.currentTime = 0;   // ← always restart from beginning
+    audio.volume = 0.35;
+    audio.play().catch(() => {});
+  }
+
+  tryPlay();
+
+  ['click', 'touchstart', 'keydown'].forEach(evt => {
+    document.addEventListener(evt, tryPlay, { once: true });
+  });
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    muted = !muted;
+    audio.muted = muted;
+    icon.textContent = muted ? '🔇' : '🎵';
+    btn.classList.toggle('muted', muted);
+    if (!muted) {
+      audio.currentTime = 0;   // ← reset to start when unmuting
+      audio.play().catch(() => {});
+    }
+  });
+})();
+// (function initMusic() {
+//   const audio = document.getElementById('bg-music');
+//   const btn   = document.getElementById('music-btn');
+//   const icon  = document.getElementById('music-icon');
+//   if (!audio || !btn) return;
+
+//   let muted = false;
+//   let started = false;
+
+//   function tryPlay() {
+//     if (started) return;
+//     started = true;
+//     audio.volume = 0.35;
+//     audio.play().catch(() => {});
+//   }
+
+//   // Try autoplay immediately
+//   tryPlay();
+
+//   // Fallback: play on first user interaction anywhere on page
+//   ['click', 'touchstart', 'keydown'].forEach(evt => {
+//     document.addEventListener(evt, tryPlay, { once: true });
+//   });
+
+//   btn.addEventListener('click', (e) => {
+//     e.stopPropagation();
+//     muted = !muted;
+//     audio.muted = muted;
+//     icon.textContent = muted ? '🔇' : '🎵';
+//     btn.classList.toggle('muted', muted);
+//     // Ensure audio is playing when unmuting
+//     if (!muted && audio.paused) { audio.play().catch(() => {}); }
+//   });
+// })();
+
+
+/* ══════════════════════════════════════════════
+   3. HERO — FALLING PETALS
 ══════════════════════════════════════════════ */
 function initHeroPetals() {
   const wrap = document.getElementById('petals-wrap');
@@ -113,7 +258,7 @@ function initHeroPetals() {
 
 
 /* ══════════════════════════════════════════════
-   3. COUNTDOWN
+   4. COUNTDOWN
 ══════════════════════════════════════════════ */
 (function initCountdown() {
   const target = new Date('2026-05-13T17:30:00').getTime();
@@ -141,23 +286,16 @@ function initHeroPetals() {
 
 
 /* ══════════════════════════════════════════════
-   4. SCRATCH CARDS
-   Color themes matched to each event:
-   0 - Pre-Wedding Bash   → Deep Magenta/Purple (festive, carnival)
-   1 - Sakharpuda         → Rich Gold/Amber (auspicious, engagement)
-   2 - Haldi              → Turmeric Yellow/Saffron Orange
-   3 - Sangeet            → Peacock Teal/Deep Emerald (dance night)
-   4 - Wedding            → Deep Crimson/Maroon (traditional bridal)
-   5 - Reception          → Midnight Navy/Silver (formal gala)
+   5. SCRATCH CARDS
 ══════════════════════════════════════════════ */
 (function initScratch() {
   const CARD_COLORS = [
-    ['#4A1060', '#9B2D6A'],   // Pre-Wedding: deep purple → magenta
-    ['#8B6914', '#C9A84C'],   // Sakharpuda: dark gold → bright gold
-    ['#A05A00', '#E8A020'],   // Haldi: burnt orange → turmeric yellow
-    ['#0D5C4A', '#1A9B7A'],   // Sangeet: deep teal → emerald
-    ['#6B0A18', '#C0395A'],   // Wedding: deep maroon → crimson rose
-    ['#0D1A3A', '#2E4A7A'],   // Reception: midnight navy → slate blue
+    ['#4A1060', '#9B2D6A'],
+    ['#8B6914', '#C9A84C'],
+    ['#A05A00', '#E8A020'],
+    ['#0D5C4A', '#1A9B7A'],
+    ['#6B0A18', '#C0395A'],
+    ['#0D1A3A', '#2E4A7A'],
   ];
 
   document.querySelectorAll('.scratch-canvas').forEach((canvas, i) => {
@@ -193,7 +331,6 @@ function initHeroPetals() {
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, W, H);
 
-      // Subtle dot texture
       ctx.globalAlpha = 0.07;
       for (let r = 0; r < H; r += 18) {
         for (let c = 0; c < W; c += 18) {
@@ -205,7 +342,6 @@ function initHeroPetals() {
       }
       ctx.globalAlpha = 1;
 
-      // Shimmer band
       const sh = ctx.createLinearGradient(0, H * 0.44, W, H * 0.56);
       sh.addColorStop(0, 'transparent');
       sh.addColorStop(0.5, 'rgba(255,255,255,0.12)');
@@ -213,7 +349,6 @@ function initHeroPetals() {
       ctx.fillStyle = sh;
       ctx.fillRect(0, H * 0.44, W, H * 0.12);
 
-      // Text
       ctx.fillStyle = 'rgba(255,255,255,0.28)';
       ctx.font = `600 ${W * 0.048}px Cinzel, serif`;
       ctx.textAlign = 'center';
@@ -223,38 +358,28 @@ function initHeroPetals() {
 
     function scratch(x, y) {
       if (scratched) return;
-
       const radius = 28;
-
       ctx.globalCompositeOperation = 'destination-out';
       ctx.beginPath();
       ctx.arc(x, y, radius, 0, Math.PI * 2);
       ctx.fill();
-
       scratchedArea += Math.PI * radius * radius * 0.45;
       hint.style.opacity = '0';
-
-      if ((scratchedArea / totalArea) > 0.5) {
-        autoReveal();
-      }
+      if ((scratchedArea / totalArea) > 0.5) { autoReveal(); }
     }
 
     function autoReveal() {
       if (scratched) return;
       scratched = true;
-
       canvas.style.transition = 'opacity 0.5s ease';
       canvas.style.opacity = '0';
       hint.style.opacity = '0';
       badge.classList.add('show');
       cont.classList.add('scratched');
-
       setTimeout(() => { canvas.style.display = 'none'; }, 500);
-
       reveal.style.transform = 'scale(1.04)';
       reveal.style.transition = 'all 0.35s ease';
       setTimeout(() => { reveal.style.transform = 'scale(1)'; }, 300);
-
       burstPetals(canvas);
     }
 
@@ -312,7 +437,7 @@ function initHeroPetals() {
 
 
 /* ══════════════════════════════════════════════
-   5. SCROLL REVEAL
+   6. SCROLL REVEAL
 ══════════════════════════════════════════════ */
 (function () {
   const obs = new IntersectionObserver(
