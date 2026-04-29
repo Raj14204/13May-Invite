@@ -6,6 +6,42 @@
    2. User taps anywhere on splash → Video plays once.
    3. Video ends  → Splash auto-dismisses to hero.
    ═══════════════════════════════════════════ */
+   /* ══════════════════════════════════════════
+   0. LOADER — waits for fonts + video before showing anything
+══════════════════════════════════════════ */
+(function initLoader() {
+  const loader = document.getElementById('loader-screen');
+  const bar    = document.getElementById('loader-bar');
+  if (!loader) return;
+
+  let progress = 0;
+  function setProgress(val) {
+    progress = Math.max(progress, val);
+    bar.style.width = progress + '%';
+  }
+
+  // Step 1: fonts loaded
+  const fontsReady = document.fonts.ready.then(() => setProgress(40));
+
+  // Step 2: splash video can play
+  const video = document.getElementById('bg-video');
+  const videoReady = new Promise(resolve => {
+    if (!video) return resolve();
+    if (video.readyState >= 3) { setProgress(85); return resolve(); }
+    video.addEventListener('canplay', () => { setProgress(85); resolve(); }, { once: true });
+    video.addEventListener('error',   () => { setProgress(85); resolve(); }, { once: true });
+    // Fallback: don't hang forever on very slow connections
+    setTimeout(() => { setProgress(85); resolve(); }, 6000);
+  });
+
+  Promise.all([fontsReady, videoReady]).then(() => {
+    setProgress(100);
+    setTimeout(() => {
+      loader.classList.add('hidden');
+      setTimeout(() => { if (loader.parentNode) loader.remove(); }, 750);
+    }, 350); // small pause so bar visually hits 100%
+  });
+})();
 (function initSplash() {
   const splash      = document.getElementById('splash');
   const mainPage    = document.getElementById('main-page');
@@ -52,7 +88,7 @@
     mainPage.classList.add('visible');
     window.scrollTo({ top: 0, behavior: 'instant' });
     setTimeout(initHeroPetals, 500);
-    setTimeout(initHeroScrollPeek, 600);
+    setTimeout(initHeroScrollPeek, 10);
     setTimeout(() => { if (splash.parentNode) splash.remove(); }, 1000);
   }
 
@@ -451,37 +487,54 @@ function initHeroPetals() {
    7. HERO AUTO-SCROLL PEEK
 ══════════════════════════════════════════ */
 function initHeroScrollPeek() {
-  const hero = document.querySelector('.hero');
   const video = document.querySelector('.hero-video');
   let peeked = false;
 
   function doPeek() {
     if (peeked) return;
     peeked = true;
-
-    const peekAmount = window.innerHeight * 0.28; // scroll down 28% of screen
-
-    // Smooth scroll down
-    window.scrollTo({ top: peekAmount, behavior: 'smooth' });
-
-    // After a short pause, scroll back up
-    setTimeout(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 1200);
+    window.scrollTo({ top: window.innerHeight * 0.90, behavior: 'smooth' });
   }
 
-  // Trigger peek when hero video ends
   if (video) {
-    video.addEventListener('ended', () => {
-      setTimeout(doPeek, 600); // slight delay after video ends
-    });
-
-    // Fallback: if video is very long or doesn't fire ended, peek after 8s
-    setTimeout(() => {
-      if (!peeked) doPeek();
-    }, 8000);
+    video.addEventListener('ended', () => setTimeout(doPeek, 600), { once: true });
+    setTimeout(() => { if (!peeked) doPeek(); }, 8000);
   } else {
-    // No video — peek after 3s
     setTimeout(doPeek, 3000);
   }
 }
+// function initHeroScrollPeek() {
+//   const hero = document.querySelector('.hero');
+//   const video = document.querySelector('.hero-video');
+//   let peeked = false;
+
+//   function doPeek() {
+//     if (peeked) return;
+//     peeked = true;
+
+//     const peekAmount = window.innerHeight * 0.28; // scroll down 28% of screen
+
+//     // Smooth scroll down
+//     window.scrollTo({ top: peekAmount, behavior: 'smooth' });
+
+//     // After a short pause, scroll back up
+//     setTimeout(() => {
+//       window.scrollTo({ top: 0, behavior: 'smooth' });
+//     }, 1200);
+//   }
+
+//   // Trigger peek when hero video ends
+//   if (video) {
+//     video.addEventListener('ended', () => {
+//       setTimeout(doPeek, 600); // slight delay after video ends
+//     });
+
+//     // Fallback: if video is very long or doesn't fire ended, peek after 8s
+//     setTimeout(() => {
+//       if (!peeked) doPeek();
+//     }, 8000);
+//   } else {
+//     // No video — peek after 3s
+//     setTimeout(doPeek, 3000);
+//   }
+// }
