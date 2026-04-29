@@ -220,7 +220,7 @@
     e.stopPropagation();
     muted = !muted;
     audio.muted = muted;
-    icon.textContent = muted ? '🔇' : '🎵';
+    icon.textContent = muted ? '🔇' : '🔊';
     btn.classList.toggle('muted', muted);
     if (!muted) {
       audio.currentTime = 0;   // ← reset to start when unmuting
@@ -327,10 +327,10 @@ function initHeroPetals() {
 ══════════════════════════════════════════════ */
 (function initScratch() {
   const CARD_COLORS = [
-    ['#4A1060', '#9B2D6A'],
-    ['#8B6914', '#C9A84C'],
-    ['#A05A00', '#E8A020'],
     ['#0D5C4A', '#1A9B7A'],
+    ['#8b148b', '#c94cb4'],
+    ['#A05A00', '#E8A020'],
+    ['#4A1060', '#9B2D6A'],
     ['#6B0A18', '#C0395A'],
     ['#0D1A3A', '#2E4A7A'],
   ];
@@ -471,7 +471,81 @@ function initHeroPetals() {
     });
   }
 })();
+/* ══════════════════════════════════════════
+   SCRATCH HINT — first card only, hides on reveal
+══════════════════════════════════════════ */
+(function initScratchHints() {
+  const firstWrap = document.querySelector('.scratch-canvas-wrap');
+  if (!firstWrap) return;
 
+  const cont = firstWrap.closest('.scratch-container');
+
+  // Finger hint inside the card
+  const hint = document.createElement('div');
+  hint.className = 'scratch-finger';
+  hint.style.opacity = '0';
+  hint.innerHTML = `
+    <span class="scratch-finger-emoji">👆</span>
+    <span class="scratch-finger-text">✦ Scratch to reveal ✦</span>
+  `;
+  firstWrap.appendChild(hint);
+
+  // Text below the card
+  const belowText = document.createElement('p');
+  belowText.style.cssText = `
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.28em;
+    color: #C9A84C;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  `;
+  belowText.textContent = '✦ Scratch the card to reveal ✦';
+  cont.insertAdjacentElement('afterend', belowText);
+
+  let hintShown = false;
+
+  function removeHint() {
+    hint.style.opacity = '0';
+    // belowText.style.opacity = '0';
+    setTimeout(() => {
+      hint.remove();
+      // belowText.remove();
+    }, 500);
+  }
+
+  // Show when first card enters view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !hintShown) {
+        hintShown = true;
+        setTimeout(() => {
+          hint.style.opacity = '1';
+          // belowText.style.opacity = '1';
+        }, 600);
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  observer.observe(cont);
+
+  // Hide as soon as user starts scratching
+  firstWrap.addEventListener('mousedown', removeHint, { once: true });
+  firstWrap.addEventListener('touchstart', removeHint, { once: true });
+
+  // Also hide when card is fully scratched (watch for .scratched class)
+  const scratchObserver = new MutationObserver(() => {
+    if (cont.classList.contains('scratched')) {
+      removeHint();
+      scratchObserver.disconnect();
+    }
+  });
+  scratchObserver.observe(cont, { attributes: true, attributeFilter: ['class'] });
+})();
 
 /* ══════════════════════════════════════════════
    6. SCROLL REVEAL
